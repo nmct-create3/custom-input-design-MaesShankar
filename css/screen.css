@@ -80,6 +80,8 @@
     /*transitions*/
     --global-transition-duration: 2ms;
     --global-transition-timing: ease-in-out;
+    --global-page-color: var(--color-neutral-xxxx-dark);
+    --global-page-backgroundColor: var(--color-neutral-xxxx-light);
 }
 
 /*------------------------------------*\
@@ -91,6 +93,13 @@
     ---
     Global page styles + universal box-sizing:
 */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --global-page-color: White;
+        --global-page-backgroundColor: var(--color-neutral-xxxx-dark);
+    }
+}
 
 html {
     line-height: 1.5;
@@ -540,6 +549,19 @@ input::placeholder {
 .c-logo__path--3 {
     fill: var(--global-color-alpha-x-dark);
 }
+@media (prefers-color-scheme: dark) {
+    .c-logo__path--1 {
+        fill: white;
+    }
+
+    .c-logo__path--2 {
+        fill: white;
+    }
+
+    .c-logo__path--3 {
+        fill: white;
+    }
+}
 
 /*
     Component: Card
@@ -709,11 +731,11 @@ input::placeholder {
     Do magic stuff here, for example:
     */
     border-color: var(--global-input-hover-borderColor);
-    box-shadow: spread 4px var(--global-input-hover-borderColor);
+    box-shadow:0px 8px 15px var(--global-input-hover-borderColor);
 }
 .c-option--hidden:hover,.c-option--hidden:focus + .c-label .c-custom-option__fake-input--radio{
     border-color: rgb(51, 133,255) ;
-    box-shadow: spread 4px var(--global-input-hover-borderColor);
+    box-shadow:0px 8px 15px var(--global-input-hover-borderColor);
 }
 
 .c-option--hidden:active,.c-option--hidden:focus + .c-label .c-custom-option__fake-input--checkbox{
@@ -721,18 +743,14 @@ input::placeholder {
     Do magic stuff here, for example:
     */
     border-color: var(--global-input-hover-borderColor);
-    box-shadow: spread 4px var(--global-input-hover-borderColor);
+     box-shadow:0px 8px 15px var(--global-input-hover-borderColor);
 }  
 .c-option--hidden:active + .c-label .c-custom-option__fake-input--radio {
     border-color: var(--global-input-hover-borderColor); 
-    box-shadow: spread 4px var(--global-input-hover-borderColor);
+    box-shadow:0px 8px 15px var(--global-input-hover-borderColor);
 }
-.c-option-list{
-    margin-bottom: 24px;
-}
-.c-option-list__item{
-    margin-bottom: 12px;
-}
+
+
 /*
     Component: Label
     ---
@@ -790,12 +808,13 @@ input::placeholder {
 */
 .c-custom-toggle{
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: center;
 }
 .c-custom-toggle__fake-input{
-    display: block;
+    display: flex;
+    align-items: center;
     width: 48px;
     height: 24px; 
     margin-right: 8px;
@@ -806,7 +825,85 @@ input::placeholder {
 
     
 }
+.c-custom-toggle__fake-input::after {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px; 
+    margin-right: 8px;
+    border: solid;
+    border-width: var(--global-borderWidth);
+    border-color: var(--global-color-neutral-xxx-light);
+    border-radius: 100%;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    position: absolute;
+    transition: all var(--transition-alpha);
+    
+}
+.c-option--hidden:checked + .c-label .c-custom-toggle__fake-input::after{
+    transform: translateX(24px);
+    border-color: var(--global-color-alpha);
+}
+.c-option--hidden:checked + .c-label .c-custom-toggle__fake-input{
+    background-color: var(--global-color-alpha);
+    border-color: var(--global-color-alpha);
+}
 
+
+.c-option--hidden:hover + .c-label .c-custom-toggle__fake-input{
+  /*
+    Do magic stuff here, for example:
+    */
+    border-color: var(--global-input-hover-borderColor);
+    box-shadow:0px 8px 15px var(--global-input-hover-borderColor);
+}
+.c-option--hidden:hover,.c-option--hidden:focus + .c-custom-toggle__fake-input{
+    border-color: rgb(51, 133,255) ;
+    box-shadow:0px 8px 15px var(--global-input-hover-borderColor);
+}
+
+.c-option--hidden:active,.c-option--hidden:focus + .c-label .c-custom-toggle__fake-input{
+  /*
+    Do magic stuff here, for example:
+    */
+    border-color: var(--global-input-hover-borderColor);
+     box-shadow:0px 8px 15px var(--global-input-hover-borderColor);
+}  
+.c-custom-toggle__fake-input.c-custom-option__fake-input--radio {
+    border-color: var(--global-input-hover-borderColor); 
+    box-shadow:0px 8px 15px var(--global-input-hover-borderColor);
+}
+.c-option-list{
+    margin-bottom: 24px;
+}
+.c-option-list__item{
+    margin-bottom: 12px;
+}
+.c-toggle-list{
+    margin-bottom: 48px;
+}
+.c-toggle-list__item{
+    margin-bottom: 24px;
+}
+/*
+    Component: dropdown
+    ---
+    Class to put on form buttons or
+*/
+.c-custom-select{
+    display:block;
+    position: relative;
+}
+.c-custom-select__symbol{
+    width: 24px;
+    height: 24px;
+    fill: var(--global-color-neutral-x-light);
+    pointer-events: none;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+}
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
