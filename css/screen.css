@@ -43,6 +43,7 @@
     --global-color-neutral-xxx-dark: #35374d;
     --global-color-neutral-xxxx-dark: #20223a;
 
+
     /* border stuff */
     --global-borderRadius: 3px;
     --global-borderWidth: 1px;
@@ -67,6 +68,18 @@
     /*  = 48px */
     --global-whitespace-xxl: calc(var(--global-whitespace) * 3);
     /*  = 72px */
+
+    /*Borders*/
+    --global-input-backgroundColor: White;
+    --global-input-color: var(--global-color-neutral-xxxx-dark);
+    --global-input-borderColor: var(--global-color-neutral-xxx-light);
+    --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
+    --global-input-focus-borderColor: var(--global-color-alpha);
+    --global-input-boxShadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+
+    /*transitions*/
+    --global-transition-duration: 2ms;
+    --global-transition-timing: ease-in-out;
 }
 
 /*------------------------------------*\
@@ -601,10 +614,10 @@ input::placeholder {
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    border: var(--global-borderWidth) solid var(--global-color-neutral-xxx-light);
     border-radius: var(--global-borderRadius);
-    color: var(--global-color-neutral-xxxx-dark);
-    background-color: White;
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+    color: var(--global-input-color);
     font-family: inherit;
     font-size: 16px;
     line-height: calc(var(--global-baseline) * 3);
@@ -614,21 +627,112 @@ input::placeholder {
 }
 
 .c-input:hover {
-    border-color: var(--global-color-neutral-xx-light);
+    border-color: var(--global-input-hover-borderColor);
 }
 
 .c-input:focus,
 .c-input:active {
-    border-color: var(--global-color-alpha);
-    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+    border-color: var(--global-input-focus-borderColor);
+    box-shadow: var(--global-input-boxShadow)
 }
 
 /* option input for checkboxes and radio buttons */
 
 .c-option {
     margin-right: var(--global-whitespace-sm);
+    
+}
+.c-custom-option{
+    display: flex;
+    flex-direction: row;
+    
+}
+.c-custom-option__fake-input{
+    width: 16px;
+    height: 16px; 
+    margin-right: 8px;
+    border: solid;
+    border-width: var(--global-borderWidth);
+    border-color: var(--global-color-neutral-xxx-light);
 }
 
+.c-custom-option__fake-input--checkbox .c-custom-option__symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 2px;
+    background-color: white;
+    fill: var(--global-color-alpha);
+}
+.c-custom-option__fake-input--checkbox{
+    border-radius: var(--global-borderRadius);
+}
+.c-custom-option__fake-input--radio{
+    /* Stuff for the radio button icon... */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    height: 16px;
+    width: 16px;
+   
+}
+.c-custom-option__symbol{
+    opacity: 0;
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: var(--global-color-alpha);
+}
+.c-option--hidden:checked + .c-custom-option {
+  /*
+    Do magic stuff here, for example:
+    */
+    transition-duration: var(--global-transition-duration);
+    transition: var(--global-transition-timing);
+    opacity: 1;
+}
+.c-option--hidden:checked + .c-custom-option .c-custom-option__symbol {
+  /*
+    Do magic stuff here, for example:
+    */
+    transition-duration: 2ms;
+    transition: ease-in-out;
+    opacity: 1;
+}
+
+.c-option--hidden:hover + .c-label .c-custom-option__fake-input--checkbox{
+  /*
+    Do magic stuff here, for example:
+    */
+    border-color: var(--global-input-hover-borderColor);
+    box-shadow: spread 4px var(--global-input-hover-borderColor);
+}
+.c-option--hidden:hover,.c-option--hidden:focus + .c-label .c-custom-option__fake-input--radio{
+    border-color: rgb(51, 133,255) ;
+    box-shadow: spread 4px var(--global-input-hover-borderColor);
+}
+
+.c-option--hidden:active,.c-option--hidden:focus + .c-label .c-custom-option__fake-input--checkbox{
+  /*
+    Do magic stuff here, for example:
+    */
+    border-color: var(--global-input-hover-borderColor);
+    box-shadow: spread 4px var(--global-input-hover-borderColor);
+}  
+.c-option--hidden:active + .c-label .c-custom-option__fake-input--radio {
+    border-color: var(--global-input-hover-borderColor); 
+    box-shadow: spread 4px var(--global-input-hover-borderColor);
+}
+.c-option-list{
+    margin-bottom: 24px;
+}
+.c-option-list__item{
+    margin-bottom: 12px;
+}
 /*
     Component: Label
     ---
@@ -678,6 +782,29 @@ input::placeholder {
 .c-button:active {
     background-color: var(--global-color-alpha-dark);
     box-shadow: none;
+}
+/*
+    Component: toggle
+    ---
+    Class to put on form buttons or
+*/
+.c-custom-toggle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.c-custom-toggle__fake-input{
+    display: block;
+    width: 48px;
+    height: 24px; 
+    margin-right: 8px;
+    border: solid;
+    border-width: var(--global-borderWidth);
+    border-color: var(--global-color-neutral-xxx-light);
+    border-radius: 24px;
+
+    
 }
 
 /*------------------------------------*\
